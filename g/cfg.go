@@ -8,54 +8,31 @@ import (
 )
 
 type HttpConfig struct {
-	Enabled bool   `json:"enabled"`
-	Listen  string `json:"listen"`
+	Enable bool   `json:"enable"`
+	Listen string `json:"listen"`
 }
 
 type RpcConfig struct {
-	Enabled bool   `json:"enabled"`
-	Listen  string `json:"listen"`
+	Enable bool   `json:"enable"`
+	Listen string `json:"listen"`
 }
 
-type SocketConfig struct {
-	Enabled bool   `json:"enabled"`
-	Listen  string `json:"listen"`
-	Timeout int    `json:"timeout"`
-}
-
-type JudgeConfig struct {
-	Enabled     bool              `json:"enabled"`
-	Batch       int               `json:"batch"`
-	ConnTimeout int               `json:"connTimeout"`
-	CallTimeout int               `json:"callTimeout"`
-	PingMethod  string            `json:"pingMethod"`
-	MaxConns    int               `json:"maxConns"`
-	MaxIdle     int               `json:"maxIdle"`
-	Replicas    int               `json:"replicas"`
-	Cluster     map[string]string `json:"cluster"`
-}
-
-type GraphConfig struct {
-	Enabled          bool              `json:"enabled"`
-	Batch            int               `json:"batch"`
-	ConnTimeout      int               `json:"connTimeout"`
-	CallTimeout      int               `json:"callTimeout"`
-	PingMethod       string            `json:"pingMethod"`
-	MaxConns         int               `json:"maxConns"`
-	MaxIdle          int               `json:"maxIdle"`
-	Replicas         int               `json:"replicas"`
-	Migrating        bool              `json:"migrating"`
-	Cluster          map[string]string `json:"cluster"`
-	ClusterMigrating map[string]string `json:"clusterMigrating"`
+type MailConfig struct {
+	Enable            bool   `json:"enable"`
+	SendConcurrent    int    `json:"sendConcurrent"`
+	MaxQueueSize      int    `json:"maxQueueSize"`
+	FromUser          string `json:"fromUser"`
+	MailServerHost    string `json:"mailServerHost"`
+	MailServerPort    int    `json:"mailServerPort"`
+	MailServerAccount string `json:"mailServerAccount"`
+	MailServerPasswd  string `json:"mailServerPasswd"`
 }
 
 type GlobalConfig struct {
-	Debug  bool          `json:"debug"`
-	Http   *HttpConfig   `json:"http"`
-	Rpc    *RpcConfig    `json:"rpc"`
-	Socket *SocketConfig `json:"socket"`
-	Judge  *JudgeConfig  `json:"judge"`
-	Graph  *GraphConfig  `json:"graph"`
+	Debug bool        `json:"debug"`
+	Http  *HttpConfig `json:"http"`
+	Rpc   *RpcConfig  `json:"rpc"`
+	Mail  *MailConfig `json:"mail"`
 }
 
 var (
@@ -64,13 +41,13 @@ var (
 	configLock = new(sync.RWMutex)
 )
 
-func Config() *GlobalConfig {
+func GetConfig() *GlobalConfig {
 	configLock.RLock()
 	defer configLock.RUnlock()
 	return config
 }
 
-func ParseConfig(cfg string) {
+func LoadConfig(cfg string) {
 	if cfg == "" {
 		log.Fatalln("use -c to specify configuration file")
 	}
@@ -91,9 +68,6 @@ func ParseConfig(cfg string) {
 	if err != nil {
 		log.Fatalln("parse config file:", cfg, "fail:", err)
 	}
-
-	// 配置文件正确性 校验, 不合法则直接 Exit(1)
-	// TODO
 
 	configLock.Lock()
 	defer configLock.Unlock()

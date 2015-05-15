@@ -2,8 +2,8 @@ package http
 
 import (
 	"fmt"
+	"github.com/niean/mailsender/g"
 	"net/http"
-	"strings"
 )
 
 func configCommonRoutes() {

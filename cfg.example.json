@@ -1,0 +1,21 @@
+{
+	"debug":true,
+	"http":{
+		"enable":true,
+		"listen":"0.0.0.0:1986"
+	},
+	"rpc":{
+		"enable":false,
+		"listen":"0.0.0.0:1988"
+	},
+	"mail":{
+		"enable" : true,
+		"sendConcurrent" : 5,
+		"maxQueueSize" : 1000,
+		"fromUser" : "anan.nie",
+		"mailServerHost" : "smtp.exmail.qq.com",
+		"mailServerPort" : 25,
+		"mailServerAccount" : "anan.nie@tycloudstart.com",
+		"mailServerPasswd" : ""
+	}
+}

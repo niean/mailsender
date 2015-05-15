@@ -1,0 +1,114 @@
+#!/bin/bash
+HOMEDIR=$(cd $(dirname $0); pwd)
+cd $HOMEDIR
+
+module=mailsender
+app=tycs-$module
+cfg=cfg.json
+pidfile=var/app.pid
+logfile=var/app.log
+
+mkdir -p var
+
+## internal funciton
+function checkpid(){
+	if [ -f $pidfile ]; then
+		pid=`cat $pidfile`
+		if [ -n $pid ]; then
+			running=`ps -p $pid | grep -v "PID TTY" | wc -l`
+			return $running
+		fi
+	fi
+	return 0
+}
+
+
+## 
+function build(){
+	go build -o $app main.go
+	if [ $? == 0 ]; then
+		./$app -v
+	else
+		echo -e "build error"
+	fi
+}
+
+function pack(){
+	build
+    version=`./$app -v`
+    tar zcvf $app-$version.tar.gz control $app cfg.example.json ./test/debug
+}
+
+## 
+function start(){
+	checkpid
+	running=$?
+	if [ $running -gt 0 ]; then
+		echo -n "$app running, pid="
+		cat $pidfile
+		return 1
+	fi	
+
+	nohup ./$app -c $cfg &>$logfile &
+	echo $! > $pidfile
+	echo -e "$app start ok, pid=$!"
+}
+function stop(){
+	pid=`cat $pidfile`
+	kill -9 $pid && echo "$app killed -9"
+}
+function restart(){
+	stop
+	sleep 1
+	start
+}
+
+##
+function version(){
+	if [ -f $app ]; then
+		./$app -v
+	fi	
+}
+
+function status() {
+    checkpid
+    running=$?
+    if [ $running -gt 0 ];then
+        echo -n "$app running, pid="
+        cat $pidfile
+    else
+        echo "$app not running"
+    fi
+}
+
+case $1 in
+	"build")
+		build
+		;;
+	"pack")
+		pack
+		;;
+	"start")
+		start
+		;;
+	"stop")
+		stop	
+		;;
+	"restart")
+		restart
+		;;
+	"version")
+		version	
+		;;
+	"status")
+		status
+		;;
+	"tail")
+		tail -f $logfile
+		;;
+	"less")
+		less $logfile
+		;;
+	*)
+		;;
+esac

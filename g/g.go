@@ -6,7 +6,7 @@ import (
 )
 
 // changelog:
-// 0.0.1: init commit
+// 0.0.1: basic mail-sending service, http-api, readme. send mail concurrently
 const (
 	VERSION = "0.0.1"
 )
