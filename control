@@ -9,6 +9,7 @@ pidfile=var/app.pid
 logfile=var/app.log
 
 mkdir -p var
+mkdir -p bin
 
 ## internal funciton
 function checkpid(){
@@ -37,6 +38,12 @@ function pack(){
 	build
     version=`./$app -v`
     tar zcvf $app-$version.tar.gz control $app cfg.example.json ./test/debug
+}
+
+function packbin(){
+	build
+    version=`./$app -v`
+    tar zcvf ./bin/$app.tar.gz control $app cfg.example.json ./test/debug
 }
 
 ## 
@@ -87,6 +94,9 @@ case $1 in
 		;;
 	"pack")
 		pack
+		;;
+	"packbin")
+		packbin
 		;;
 	"start")
 		start

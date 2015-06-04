@@ -3,20 +3,50 @@ simple mail-sending service, http-api, written in golang
 
 
 ## install
+install mail-sender from src
+```bash
+	# get src
+	mkdir -p $GOPATH/src/github.com/niean && cd $GOPATH/src/github.com/niean
+	git clone git@github.com:niean/mailsender.git && cd mailsender
+	
+	# build
+	./control build
+	
+	# config
+	mv cfg.example.json cfg.json
+	vim cfg.json
+	
+	# start
+	./control start
+	...
+	
+	# stop
+	./control stop
 ```
-	git clone git@github.com:niean/mailsender.git
+
+install mail-sender from bin
+```bash
+	# get bin
+	mkdir -p /home/to/mailsender && cd /home/to/mailsender
+	wget https://github.com/niean/mailsender/tree/master/bin/tycs-mailsender.tar.gz
+	tar -zxf tycs-mailsender.tar.gz
+	
+	# config
+	mv cfg.example.json cfg.json
+	vim cfg.json
+	
+	# start
+	./control start
+	...
+	
+	# stop
+	./control stop
 ```
 
 ## usage
-```
-    # install mailserver
-	git clone git@github.com:niean/mailsender.git && cd mailsender
-	mv cfg.example.json cfg.json //then change cfg.json as needed
-	./control start
-	./control tail
-
-	# test, assuming http server listens on "tycloudstart.com:1986"
-	curl -X POST -d "tos=nieanan@xiaomi.com;subject=ur subject;content=ur content;user=from_user_name" "tycloudstart.com:1986/mail/sender"
+```bash
+	# test, send one mail to tycloudstart.com:1986
+	curl -X POST -d "tos=anddynie@gmail.com;subject=some_subject;content=some_content;user=anddy" "tycloudstart.com:1986/mail/sender"
 
     # http-api
     POST /mail/sender HTTP/1.1
