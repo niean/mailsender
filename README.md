@@ -78,5 +78,44 @@ install mail-sender from bin
         - mailServerPasswd: int, password for mailServerAccount
 ```
 
+## debug
+use ```./test/debug``` to debug your mailsender service
+```bash
+	bash ./test/debug
+	{
+	    "data": [
+	        {# counter of mailsending request
+	            "Cnt": 0,
+	            "Name": "HttpRequestCnt",
+	            "Other": {},
+	            "Qps": 0,
+	            "Time": "2015-06-17 09:11:57"
+	        },
+	        {# counter of all mails sent(ok + error)
+	            "Cnt": 0,
+	            "Name": "MailSendCnt",
+	            "Other": {},
+	            "Qps": 0,
+	            "Time": "2015-06-17 09:11:57"
+	        },
+	        {# counter of mails sent ok
+	            "Cnt": 0,
+	            "Name": "MailSendOkCnt",
+	            "Other": {},
+	            "Qps": 0,
+	            "Time": "2015-06-17 09:11:57"
+	        },
+	        {# counter of mails sent error
+	            "Cnt": 0,
+	            "Name": "MailSendErrCnt",
+	            "Other": {},
+	            "Qps": 0,
+	            "Time": "2015-06-17 09:11:57"
+	        }
+	    ],
+	    "msg": "success"
+	}
+```
+
 ## reference
 TODO
