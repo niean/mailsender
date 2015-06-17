@@ -24,6 +24,5 @@ _testmain.go
 *.prof
 
 var
-test
 cfg.json
 tycs-mailsender

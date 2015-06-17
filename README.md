@@ -10,6 +10,7 @@ install mail-sender from src
 	git clone git@github.com:niean/mailsender.git && cd mailsender
 	
 	# build
+	go get ./...
 	./control build
 	
 	# config
