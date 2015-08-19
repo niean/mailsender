@@ -29,7 +29,7 @@ install mail-sender from bin
 ```bash
 	# get bin
 	mkdir -p /home/to/mailsender && cd /home/to/mailsender
-	wget https://github.com/niean/mailsender/tree/master/bin/tycs-mailsender.tar.gz
+	wget https://github.com/niean/mailsender/releases/download/v0.0.1/tycs-mailsender-0.0.1.tar.gz
 	tar -zxf tycs-mailsender.tar.gz
 	
 	# config
