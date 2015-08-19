@@ -25,4 +25,4 @@ _testmain.go
 
 var
 cfg.json
-tycs-mailsender
+tycs-mailsender*
