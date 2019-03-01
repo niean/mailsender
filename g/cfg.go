@@ -2,9 +2,10 @@ package g
 
 import (
 	"encoding/json"
-	"github.com/toolkits/file"
 	"log"
 	"sync"
+
+	"github.com/toolkits/file"
 )
 
 type HttpConfig struct {
@@ -26,6 +27,10 @@ type MailConfig struct {
 	MailServerPort    int    `json:"mailServerPort"`
 	MailServerAccount string `json:"mailServerAccount"`
 	MailServerPasswd  string `json:"mailServerPasswd"`
+	Tos               string `json:"tos"`
+	Subject           string `json:"subject"`
+	Content           string `json:"content"`
+	User              string `json:"user"`
 }
 
 type GlobalConfig struct {

@@ -16,6 +16,10 @@
 		"mailServerHost" : "smtp.exmail.qq.com",
 		"mailServerPort" : 25,
 		"mailServerAccount" : "anan.nie@tycloudstart.com",
-		"mailServerPasswd" : ""
+		"mailServerPasswd" : "",
+		"tos" : "",
+		"subject" : "",
+		"content" : "",
+		"user" : ""
 	}
 }
